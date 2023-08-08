@@ -1,0 +1,986 @@
+---
+pagetitle: "{galah} 101 - Beginner's guide"
+title-slide-attributes: 
+  data-background-color: "#fce8f1"
+format: 
+  revealjs: 
+    code-overflow: scroll
+    theme: [default, custom.scss] 
+    transition: none
+    auto-stretch: true
+    height: 900
+    width: 1600
+revealjs-plugins:
+  - attribution
+---
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| include: false
+library(galah)
+galah_config(email = "dax.kellie@csiro.au", verbose = FALSE)
+```
+
+```{python}
+#| echo: false
+#| message: false
+#| warning: false
+#| include: false
+# load what you need for python to run
+import galah
+galah.galah_config(email="amanda.buyan@csiro.au")
+```
+
+##  {#title data-menu-title="{galah} 101 - Beginner's guide" background-color="#F8C9DE"}
+<center>
+![](images/logos/galah_logo.png){height="350px"}
+</center>
+<span style='font-size: 5.3rem;'> {galah} 101 - Beginner's guide </span><br><br>
+<b>Dr Dax Kellie</b>, <b>Dr Amanda Buyan</b><br> {{< fa brands twitter size=sm >}} <span style='font-size: 2rem;'>@daxkellie</span> <br>
+<center>
+![](images/logos/ALA_Logo.png){style='width: auto; height: 100px; margin-top: 50px; padding-left: 20px; padding-right: 20px'} ![](images/logos/NCRIS_logo.png){style='width: auto; height: 100px; margin-top: 50px; padding-left: 20px; padding-right: 20px'} ![](images/logos/CSIRO_logo.png){style='width: auto; height: 100px; margin-top: 50px; padding-left: 20px; padding-right: 20px'} 
+</center>
+
+
+# {data-menu-title="ALA"}
+
+![](images/ALA-homepage.png){fig-align="center"}
+
+#  {background-color="#B8573E" auto-animate="true"}
+
+::: {style="color: #ffffff; font-size: 170%"}
+<b>ALA4R</b><br>
+:::
+
+## ALA4R still had problems {.ala4r}
+
+::: columns
+::: {.column width="50%"}
+<br>
+
+-   **No function naming convention**
+-   Confusing syntax
+-   Inconsistent behaviour
+:::
+
+::: {.column width="\"50%"}
+::: {style="color: #222322; font-size: 60%"}
+<br><br>
+
+-   abbreviations: `aus()`
+-   snake case: `ala_fields()`
+-   single words: `occurrences()`, `images()`
+-   contractions: `fieldguide()`
+:::
+:::
+:::
+
+## ALA4R still had problems {.ala4r}
+
+::: columns
+::: {.column width="50%"}
+<br>
+
+-   No function naming convention
+-   **Confusing syntax**
+-   Inconsistent behaviour
+:::
+
+::: {.column width="\"50%"}
+::: {style="color: #222322; font-size: 60%"}
+<br><br>
+
+-   unclear function names: `ala_list()`, `ala_lists()`, `specieslist()`
+-   abbreviated argument names: `wkt`, `fq`, `qa`
+-   Required `solr` queries: `"taxon_name:\"Alaba vibex\""`
+:::
+:::
+:::
+
+## ALA4R still had problems {.ala4r}
+
+::: columns
+::: {.column width="50%"}
+<br>
+
+-   No function naming convention
+-   Confusing syntax
+-   **Inconsistent behaviour**
+:::
+
+::: {.column width="\"50%"}
+::: {style="color: #222322; font-size: 60%"}
+<br><br>
+
+-   Functions return either:
+    -   a `data.frame`
+    -   a `list`
+    -   a PDF
+:::
+:::
+:::
+
+## tidyverse {background-image="images/logos/tidylogos.png" background-color="#000" background-size="30%" background-position="center" transition="convex"}
+
+The tidyverse brought a set of recognised standards and syntax
+
+#  {background-color="#f5b2d0" auto-animate="true"}
+
+::: {style="color: #ffffff; font-size: 200%"}
+<b>galah</b><br>
+:::
+
+## galah {.galah auto-animate="true"}
+
+::: columns
+::: {.column width="30%"}
+![](images/logos/galah_logo.png)\
+![](images/logos/Rlogo.svg){height="100px"}
+:::
+
+::: {.column width="70%" style="margin-left:50px;"}
+-   Query the ALA (and other national GBIF nodes)
+-   Use tidy syntax that was structured but flexible
+:::
+:::
+
+## galah {.galah auto-animate="true"}
+
+::: columns
+::: {.column width="30%"}
+![](images/logos/galah_logo.png)
+:::
+
+::: {.column width="70%" style="margin-left:50px;"}
+::: {style="font-size: 50%;"}
+| Lookup         | Narrow a query      | Run a query           |
+|----------------|---------------------|-----------------------|
+| `show_all()`   | `galah_identify()`  | `atlas_counts()`      |
+| `search_all()` | `galah_filter()`    | `atlas_occurrences()` |
+|                | `galah_select()`    | `atlas_species()`     |
+|                | `galah_group_by()`  | `atlas_media()`       |
+|                | `galah_geolocate()` |                       |
+:::
+:::
+:::
+
+## Build a query {.galah auto-animate="true" transition-speed="fast"}
+
+```{r}
+#| eval: true
+#| echo: true
+#| message: false
+#| warning: false
+#| code-line-numbers: "|3|4,5,6,7|8"
+library(galah)
+
+galah_call() |>
+  galah_identify("Eolophus roseicapilla") |> # galahs
+  galah_filter(year >= 2019,
+               stateProvince == "New South Wales") |>
+  galah_group_by(year, dataResourceName) |>
+  atlas_counts()
+```
+
+#  {background-color="#f5b2d0" auto-animate="true"}
+
+::: {style="color: #ffffff; font-size: 200%"}
+<b>galah for Python</b><br>
+:::
+
+## galah for Python {.galah auto-animate="true"}
+
+::: columns
+::: {.column width="30%"}
+<center>
+![](images/logos/galah_logo.png)\
+![](images/logos/python-logo.svg){height="100px"}
+</center>
+:::
+
+::: {.column width="70%" style="margin-left:50px;"}
+::: {style="font-size: 50%;"}
+| Lookup               | Narrow a query                                               | Run a query                 |
+|----------------------|--------------------------------------------------------------|-----------------------------|
+| `galah.show_all()`   | `taxa=`                                                      | `galah.atlas_counts()`      |
+| `galah.search_all()` | `filters=`                                                   | `galah.atlas_occurrences()` |
+|                      | `select=`                                                    | `galah.atlas_species()`     |
+|                      | `group_by=`                                                  | `galah.atlas_media()`       |
+|                      | `geolocate=`                                                 |                             |
+
+*Note: {galah} for Python narrows queries with arguments inside `atlas_` functions*
+:::
+:::
+:::
+
+## Build a query {.galah auto-animate="true" transition-speed="fast"}
+
+<!-- Build the same query but in python  -->
+
+```{python}
+#| eval: false
+#| echo: true
+#| message: false
+#| warning: false
+#| code-line-numbers: "|3|4,5,6,7|8"
+library(galah)
+
+galah_call() |>
+  galah_identify("Eolophus roseicapilla") |> # galahs
+  galah_filter(year >= 2019,
+               stateProvince == "New South Wales") |>
+  galah_group_by(year, dataResourceName) |>
+  atlas_counts()
+```
+
+## Learn how to use galah for R and Python {.galah}
+
+* Install & load {galah}
+* See or search for information
+* Build a query
+* Make a map of observations
+
+<center>
+image of tree frog
+</center>
+
+
+#  {data-menu-title="Install and load {galah}" background-color="#f5b2d0" auto-animate="true"}
+
+::: {style="color: #ffffff; font-size: 200%"}
+<b>Install and load {galah}</b><br>
+:::
+
+
+## Install and load {galah} {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+
+```{r}
+#| echo: true
+#| eval: false
+install.packages("galah") # install
+library(galah)            # load
+```
+
+::: {.fragment .fade-in fragment-index="1"}
+<br>
+We can already run a simple query!
+
+```{r}
+#| echo: true
+atlas_counts()
+```
+:::
+
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+#| echo: true
+#| eval: false
+pip install galah
+import galah
+```
+
+::: {.fragment .fade-in fragment-index="1"}
+<br><br>
+
+```{python}
+#| echo: true
+galah.atlas_counts()
+```
+:::
+:::
+::::
+
+
+#  {data-menu-title="Build a query for Peron's tree frog" background-color="#f5b2d0"}
+
+::: {style="color: #ffffff; font-size: 120%;"}
+<b>Build a query</b><br>
+Download occurrence records of Peron's tree frog in New South Wales since 2018 by FrogID
+:::
+
+##  {data-menu-title="Peron's tree frog" background-image="images/litoria-peronii1.jpg"}
+
+:::{.attribution style="color: #fff"}
+Photo | Indiaianson CC BY NC \
+*Litoria peronii*
+:::
+
+##  {data-menu-title="Peron's tree frog" background-image="images/litoria-peronii2.jpeg"}
+
+:::{.attribution style="color: #fff"}
+Photo | Jeannie CC BY NC \
+*Litoria peronii*
+:::
+
+
+#  {background-color="#f5b2d0" auto-animate="true"}
+
+::: {style="color: #ffffff; font-size: 200%"}
+<b>See or search for information</b><br>
+:::
+
+
+## `show_all()` & `search_all()` {.galah}
+<center>
+![](images/info-table.png){height=800px}
+</center>
+
+Use these functions to find information or metadata to filter your queries
+
+
+#  {background-color="#f5b2d0" auto-animate="true"}
+
+::: {style="color: #ffffff; font-size: 200%"}
+<b>Download record counts</b><br>
+:::
+
+## Search taxa {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+search_taxa("litoria peronii")
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+#| echo: true
+#| code-overflow: scroll
+galah.search_taxa("litoria peronii")
+```
+:::
+::::
+
+## Search taxa {.galah}
+<!-- What happens with a bad search?  -->
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+search_taxa("incorrect taxa")
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+#| echo: true
+#| code-overflow: scroll
+
+```
+:::
+::::
+
+## Search taxa {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+search_taxa("litoria peronii", "Crinia signifera", "Rhinella marina")
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+#| echo: true
+#| code-overflow: scroll
+
+```
+:::
+::::
+
+<br><br>
+Search taxa accepts multiple taxa at a time
+
+
+## Narrow query by taxa {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+galah_call() |>
+  galah_identify("litoria peronii") |>
+  atlas_counts()
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+#| echo: true
+#| code-overflow: scroll
+
+```
+:::
+::::
+
+
+## Narrow query by field {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+galah_call() |>
+  galah_identify("litoria peronii") |>
+  galah_filter(year >= 2018) |>
+  atlas_counts()
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+#| echo: true
+#| code-overflow: scroll
+
+```
+:::
+::::
+
+
+## Show all fields {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+show_all(fields)
+
+# show_all(fields) |> View() # open in new window
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+#| echo: true
+#| code-overflow: scroll
+
+```
+:::
+::::
+
+
+## Search fields {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+search_all(fields, "year")
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+#| echo: true
+#| code-overflow: scroll
+
+```
+:::
+::::
+
+
+## Search fields {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+search_all(fields, "australian states")
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+
+```
+:::
+::::
+
+## Show values within a field {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+search_all(fields, "australian states")
+
+search_all(fields, "cl22") |>
+  show_values()
+
+search_all(fields, "cl22") |>
+  search_values("new south wales")
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+
+```
+:::
+::::
+
+
+## Narrow query by state {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+galah_call() |>
+  galah_identify("litoria peronii") |>
+  galah_filter(year >= 2018,
+               cl22 == "New South Wales") |>
+  atlas_counts()
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+
+```
+:::
+::::
+
+
+## Search fields (again) {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+search_all(fields, "dataresource")
+
+search_all(fields, "dataResourceName") |>
+  show_values()
+
+search_all(fields, "dataResourceName") |>
+  search_values("FrogID")
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+
+```
+:::
+::::
+
+
+## Narrow query by data resource {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+galah_call() |>
+  galah_identify("litoria peronii") |>
+  galah_filter(year >= 2018,
+               cl22 == "New South Wales",
+               dataResourceName == "FrogID") |>
+  atlas_counts()
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+
+```
+:::
+::::
+
+
+## Group counts by data resource {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+galah_call() |>
+  galah_identify("litoria peronii") |>
+  galah_filter(year >= 2018,
+               cl22 == "New South Wales") |>
+  galah_group_by(dataResourceName) |>
+  atlas_counts()
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+
+```
+:::
+::::
+
+## Group counts by data resource and year {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+galah_call() |>
+  galah_identify("litoria peronii") |>
+  galah_filter(year >= 2018,
+               cl22 == "New South Wales",
+               dataResourceName == c("FrogID", "iNaturalist Australia")) |>
+  galah_group_by(dataResourceName, year) |>
+  atlas_counts()
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+
+```
+:::
+::::
+
+
+
+
+#  {background-color="#f5b2d0" auto-animate="true"}
+
+::: {style="color: #ffffff; font-size: 200%"}
+<b>Download occurrences</b><br>
+:::
+
+
+## Our counts query again {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+galah_call() |>
+  galah_identify("litoria peronii") |>
+  galah_filter(year >= 2018,
+               cl22 == "New South Wales",
+               dataResourceName == "FrogID") |>
+  atlas_counts()
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+
+```
+:::
+::::
+
+## Download occurrences {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+galah_config(email = "dax.kellie@csiro.au") # registered ALA email
+
+galah_call() |>
+  galah_identify("litoria peronii") |>
+  galah_filter(year >= 2018,
+               cl22 == "New South Wales",
+               dataResourceName == "FrogID") |>
+  atlas_occurrences()
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+
+```
+:::
+::::
+
+<br><br>
+[*Register your email by [creating an ALA account](https://auth.ala.org.au/userdetails/registration/createAccount)*]{style="font-size:.9rem;"}
+
+
+## Download occurrences {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+galah_config(email = "dax.kellie@csiro.au") # registered ALA email
+
+galah_call() |>
+  galah_identify("litoria peronii") |>
+  galah_filter(year >= 2018,
+               cl22 == "New South Wales",
+               dataResourceName == "FrogID") |>
+  galah_select(scientificName, decimalLongitude, decimalLatitude) |>
+  atlas_occurrences()
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+
+```
+:::
+::::
+
+[*Note: You only need to run `galah_config()` once per session*]{style="font-size:.9rem;"}
+
+
+#  {background-color="#f5b2d0" auto-animate="true"}
+
+::: {style="color: #ffffff; font-size: 200%"}
+<b>Make a map</b><br>
+:::
+
+
+## Make a map {.galah .scrollable}
+
+::: {.panel-tabset}
+
+### R 
+
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+library(dplyr)
+library(ggplot2)
+library(sf)      # for handling spatial objects
+library(ozmaps)  # excellent australia maps
+
+# Download data
+frogs <- galah_call() |>
+  galah_identify("litoria peronii") |>
+  galah_filter(year >= 2018,
+               cl22 == "New South Wales",
+               dataResourceName == "FrogID") |>
+  galah_select(scientificName, decimalLongitude, decimalLatitude) |>
+  atlas_occurrences()
+frogs
+
+# See what's in `ozmap_states`
+ozmaps::ozmap_states
+
+# Get map of New South Wales
+nsw <- ozmaps::ozmap_states |>
+  filter(NAME == "New South Wales")
+nsw
+
+# Make sure map is in correct spatial projection
+# (ALA records are in WGS84)
+nsw <- nsw |>
+  sf::st_transform(crs = st_crs("WGS84")) 
+nsw
+
+# see map
+ggplot() + geom_sf(data = nsw, fill = "white")
+
+# Map frog observations
+ggplot() +
+  geom_sf(data = nsw,
+          fill = "white",
+          colour = "grey70") +
+  geom_point(data = frogs,
+             aes(x = decimalLongitude,
+                 y = decimalLatitude),
+             colour = "#6fab3f",
+             alpha = 0.5) + 
+  theme_void()
+```
+
+### Python
+
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+
+```
+
+:::
+
+
+
+#  {background-color="#f5b2d0" auto-animate="true"}
+
+::: {style="color: #ffffff; font-size: 200%"}
+<b>Help & other resources</b><br>
+:::
+
+## Help & other resources {background-color="#fce8f1"}
+<br>
+
+*For code references & help getting started*:
+
+  * The {galah} website: [https://galah.ala.org.au/](https://galah.ala.org.au/)
+
+<br>
+*Quick code reference*:
+
+  * [Cheat sheet for Python](https://galah.ala.org.au/Python/cheatsheet/index.html)
+  * [Cheat sheet for R](https://github.com/AtlasOfLivingAustralia/galah-R/blob/main/cheatsheet/galah-r.pdf)
+  
+<br>
+*To learn to how to use data for analyses and dataviz*:
+
+  * ALA Labs: [https://labs.ala.org.au/](https://labs.ala.org.au/)
+
+
+
+## Thank you {background-color="#fce8f1"}
+
+::: columns
+::: {.column width="60%"}
+::: {style="font-size: 70%;"}
+<b>Dax Kellie</b><br>Data Analyst & Science Lead<br>Science & Decision Support \| ALA <br>{{< fa envelope size=lg >}}: [dax.kellie\@csiro.au](mailto:dax.kellie@csiro.au)<br> {{< fa brands twitter size=lg >}}: [\@daxkellie](https://twitter.com/daxkellie)<br> {{< fa brands github size=lg >}}: [\@daxkellie](https://github.com/daxkellie) <br><br>
+<b>Amanda Buyan</b><br>Data Analyst & Science Lead<br>Science & Decision Support \| ALA <br>{{< fa envelope size=lg >}}: [amanda.buyan\@csiro.au](mailto:amanda.buyan@csiro.au)<br> {{< fa brands github size=lg >}}: [\@acbuyan](https://github.com/acbuyan) <br> <br> <b>`galah` development team</b><br> Martin Westgate, Shandiya Balasubramaniam<br>Matilda Stevenson, Caitlin Ramsey<br>Peggy Newman<br> <em>These slides were made using Quarto</em>
+:::
+:::
+
+::: {.column width="40%"}
+<center>
+
+Slides: <br>
+
+![](images/qr-code.png){height="170"}
+
+------------------------------------------------------------------------
+
+![](images/logos/ALA_Logo.png){style="width: auto; height: 90px"}<br> ![](images/logos/NCRIS_logo.png){style="width: auto; height: 90px"} ![](images/logos/CSIRO_logo.png){style="width: auto; height: 90px"}
+
+</center>
+:::
+:::
