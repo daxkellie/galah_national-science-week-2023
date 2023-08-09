@@ -136,8 +136,10 @@ The tidyverse brought a set of recognised standards and syntax
 
 ::: columns
 ::: {.column width="30%"}
+<center>
 ![](images/logos/galah_logo.png)\
 ![](images/logos/Rlogo.svg){height="100px"}
+</center>
 :::
 
 ::: {.column width="70%" style="margin-left:50px;"}
@@ -150,7 +152,10 @@ The tidyverse brought a set of recognised standards and syntax
 
 ::: columns
 ::: {.column width="30%"}
-![](images/logos/galah_logo.png)
+<center>
+![](images/logos/galah_logo.png)\
+![](images/logos/Rlogo.svg){height="100px"}
+</center>
 :::
 
 ::: {.column width="70%" style="margin-left:50px;"}
@@ -237,14 +242,14 @@ galah_call() |>
 
 ## Learn how to use galah for R and Python {.galah}
 
+<br>
+
 * Install & load {galah}
 * See or search for information
-* Build a query
+* Build a query (counts, occurrences)
 * Make a map of observations
 
-<center>
-image of tree frog
-</center>
+
 
 
 #  {data-menu-title="Install and load {galah}" background-color="#f5b2d0" auto-animate="true"}
@@ -308,7 +313,7 @@ galah.atlas_counts()
 
 ::: {style="color: #ffffff; font-size: 120%;"}
 <b>Build a query</b><br>
-Download occurrence records of Peron's tree frog in New South Wales since 2018 by FrogID
+Download record counts and occurrence records of Peron's tree frog in New South Wales since 2018 by FrogID
 :::
 
 ##  {data-menu-title="Peron's tree frog" background-image="images/litoria-peronii1.jpg"}
