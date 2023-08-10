@@ -10,6 +10,9 @@ format:
     auto-stretch: true
     height: 900
     width: 1600
+knitr:
+  opts_chunk: 
+    class-output: hscroll
 revealjs-plugins:
   - attribution
 ---
@@ -28,7 +31,6 @@ galah_config(email = "dax.kellie@csiro.au", verbose = FALSE)
 #| message: false
 #| warning: false
 #| include: false
-# load what you need for python to run
 import galah
 galah.galah_config(email="amanda.buyan@csiro.au")
 ```
@@ -195,6 +197,28 @@ galah_call() |>
 <b>galah for Python</b><br>
 :::
 
+## why Python? {.galah auto-animate="true"}
+
+::: columns
+::: {.column width="30%"}
+<center>
+![](images/logos/galah_logo.png)\
+![](images/logos/python-logo.svg){height="100px"}
+</center>
+[*PYPL website: https://pypl.github.io/PYPL.html CC-BY 3.0*]{style="font-size:.9rem;"}
+:::
+
+::: {.column width="70%" style="margin-left:50px;"}
+::: {style="font-size: 50%;"}
+![](images/Popularity_Programming_Languages.png){height=369
+
+
+}\
+![](images/PYPL_August_2023.png){height=380}
+:::
+:::
+::::
+
 ## galah for Python {.galah auto-animate="true"}
 
 ::: columns
@@ -225,19 +249,28 @@ galah_call() |>
 <!-- Build the same query but in python  -->
 
 ```{python}
-#| eval: false
+#| eval: true
+#| echo: false
+# see if I can put column width here for whole doc
+import pandas as pd
+pd.set_option('display.max_columns', None)
+pd.set_option('expand_frame_repr', False)
+```
+
+```{python}
+#| eval: true
 #| echo: true
 #| message: false
 #| warning: false
+#| class-output: hscroll
 #| code-line-numbers: "|3|4,5,6,7|8"
-library(galah)
+import galah
 
-galah_call() |>
-  galah_identify("Eolophus roseicapilla") |> # galahs
-  galah_filter(year >= 2019,
-               stateProvince == "New South Wales") |>
-  galah_group_by(year, dataResourceName) |>
-  atlas_counts()
+galah.atlas_counts(
+  taxa = "Eolophus roseicapilla",
+  filters=["year>=2019","stateProvince==New South Wales"],
+  group_by=["year", "dataResourceName"]
+)
 ```
 
 ## Learn how to use galah for R and Python {.galah}
@@ -293,7 +326,7 @@ atlas_counts()
 ```{python}
 #| echo: true
 #| eval: false
-pip install galah
+pip install galah-python
 import galah
 ```
 
@@ -302,6 +335,7 @@ import galah
 
 ```{python}
 #| echo: true
+#| code-overflow: scroll
 galah.atlas_counts()
 ```
 :::
@@ -313,7 +347,7 @@ galah.atlas_counts()
 
 ::: {style="color: #ffffff; font-size: 120%;"}
 <b>Build a query</b><br>
-Download record counts and occurrence records of Peron's tree frog in New South Wales since 2018 by FrogID
+Download record counts and occurrence records of Peron's tree frog since 2018 in New South Wales by FrogID
 :::
 
 ##  {data-menu-title="Peron's tree frog" background-image="images/litoria-peronii1.jpg"}
@@ -349,68 +383,39 @@ Use these functions to find information or metadata to filter your queries
 #  {background-color="#f5b2d0" auto-animate="true"}
 
 ::: {style="color: #ffffff; font-size: 200%"}
-<b>Download record counts</b><br>
+<b>Build the query "Download record counts of Peron's tree frog *(Litoria peronii)* since 2018 in New South Wales by FrogID"</b><br>
 :::
 
-## Search taxa {.galah}
+
+## Check scientific name for Peron's tree frog {.galah}
 
 :::: columns
 :::{.column width="50%"}
 <center>
 ![](images/logos/rstudio.svg){height=50px}
 </center>
+
 ```{r}
 #| echo: true
 #| code-overflow: scroll
 search_taxa("litoria peronii")
 ```
-:::
 
-:::{.column width="50%"}
-<center>
-![](images/logos/python-logo.svg){height=50px}
-</center>
-```{python}
-#| echo: true
-#| code-overflow: scroll
-galah.search_taxa("litoria peronii")
-```
-:::
-::::
+::: {.fragment .fade-in fragment-index="1"}
+<br>
+Incorrect search term
 
-## Search taxa {.galah}
 <!-- What happens with a bad search?  -->
-:::: columns
-:::{.column width="50%"}
-<center>
-![](images/logos/rstudio.svg){height=50px}
-</center>
 ```{r}
 #| echo: true
 #| code-overflow: scroll
 search_taxa("incorrect taxa")
 ```
-:::
 
-:::{.column width="50%"}
-<center>
-![](images/logos/python-logo.svg){height=50px}
-</center>
-```{python}
-#| echo: true
-#| code-overflow: scroll
+::: {.fragment .fade-in fragment-index="2"}
+<br>
+Search for multiple taxa
 
-```
-:::
-::::
-
-## Search taxa {.galah}
-
-:::: columns
-:::{.column width="50%"}
-<center>
-![](images/logos/rstudio.svg){height=50px}
-</center>
 ```{r}
 #| echo: true
 #| code-overflow: scroll
@@ -418,23 +423,46 @@ search_taxa("litoria peronii", "Crinia signifera", "Rhinella marina")
 ```
 :::
 
+:::
+
+:::
+
 :::{.column width="50%"}
 <center>
 ![](images/logos/python-logo.svg){height=50px}
 </center>
+
 ```{python}
 #| echo: true
 #| code-overflow: scroll
-
+#| tbl-colwidths: false
+galah.search_taxa("litoria peronii")
 ```
+
+::: {.fragment .fade-in fragment-index="1"}
+<br><br>
+
+```{python}
+#| echo: true
+#| code-overflow: scroll
+galah.search_taxa("incorrect taxa")
+```
+
+::: {.fragment .fade-in fragment-index="2"}
+<br><br>
+
+```{python}
+#| echo: true
+#| code-overflow: scroll
+galah.search_taxa(taxa=["litoria peronii", "Crinia signifera", "Rhinella marina"])
+```
+:::
+:::
 :::
 ::::
 
-<br><br>
-Search taxa accepts multiple taxa at a time
 
-
-## Narrow query by taxa {.galah}
+## Download record counts of <u>Peron's tree frog *(Litoria peronii)*</u> {.galah}
 
 :::: columns
 :::{.column width="50%"}
@@ -457,13 +485,73 @@ galah_call() |>
 ```{python}
 #| echo: true
 #| code-overflow: scroll
-
+galah.atlas_counts(
+  taxa="litoria peronii"
+)
 ```
 :::
 ::::
 
 
-## Narrow query by field {.galah}
+## Download record counts of Peron's tree frog *(Litoria peronii)* <u>since 2018</u> {.galah}
+
+To get a list of all possible filters, look at all fields
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+show_all(fields)
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+#| echo: true
+#| code-overflow: scroll
+galah.show_all(fields=True)
+```
+:::
+::::
+
+## Download record counts of Peron's tree frog *(Litoria peronii)* <u>since 2018</u> {.galah}
+
+Search for an appropriate field name with "year"
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+search_all(fields, "year")
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+#| echo: true
+#| code-overflow: scroll
+galah.search_all(fields="year",column_name="id")
+```
+:::
+::::
+
+## Download record counts of Peron's tree frog *(Litoria peronii)* <u>since 2018</u> {.galah}
+
+Add the year value to your query
 
 :::: columns
 :::{.column width="50%"}
@@ -487,69 +575,18 @@ galah_call() |>
 ```{python}
 #| echo: true
 #| code-overflow: scroll
-
+galah.atlas_counts(
+  taxa="litoria peronii",
+  filters="year>=2018"
+)
 ```
 :::
 ::::
 
 
-## Show all fields {.galah}
+## Download record counts of Peron's tree frog *(Litoria peronii)* since 2018 <u>in New South Wales</u> {.galah}
 
-:::: columns
-:::{.column width="50%"}
-<center>
-![](images/logos/rstudio.svg){height=50px}
-</center>
-```{r}
-#| echo: true
-#| code-overflow: scroll
-show_all(fields)
-
-# show_all(fields) |> View() # open in new window
-```
-:::
-
-:::{.column width="50%"}
-<center>
-![](images/logos/python-logo.svg){height=50px}
-</center>
-```{python}
-#| echo: true
-#| code-overflow: scroll
-
-```
-:::
-::::
-
-
-## Search fields {.galah}
-
-:::: columns
-:::{.column width="50%"}
-<center>
-![](images/logos/rstudio.svg){height=50px}
-</center>
-```{r}
-#| echo: true
-#| code-overflow: scroll
-search_all(fields, "year")
-```
-:::
-
-:::{.column width="50%"}
-<center>
-![](images/logos/python-logo.svg){height=50px}
-</center>
-```{python}
-#| echo: true
-#| code-overflow: scroll
-
-```
-:::
-::::
-
-
-## Search fields {.galah}
+Find appropriate filter for New South Wales
 
 :::: columns
 :::{.column width="50%"}
@@ -568,12 +605,16 @@ search_all(fields, "australian states")
 ![](images/logos/python-logo.svg){height=50px}
 </center>
 ```{python}
-
+#| echo: true
+#| code-overflow: scroll
+galah.search_all(fields="Australian States")
 ```
 :::
 ::::
 
-## Show values within a field {.galah}
+## Download record counts of Peron's tree frog *(Litoria peronii)* since 2018 <u>in New South Wales</u> {.galah}
+
+Get values available for Australian states, and find New South Wales
 
 :::: columns
 :::{.column width="50%"}
@@ -583,8 +624,6 @@ search_all(fields, "australian states")
 ```{r}
 #| echo: true
 #| code-overflow: scroll
-search_all(fields, "australian states")
-
 search_all(fields, "cl22") |>
   show_values()
 
@@ -598,13 +637,19 @@ search_all(fields, "cl22") |>
 ![](images/logos/python-logo.svg){height=50px}
 </center>
 ```{python}
+#| echo: true
+#| code-overflow: scroll
 
+galah.show_values(field="cl22")
+
+galah.search_values(field="cl22",value="new south wales")
 ```
 :::
 ::::
 
+## Download record counts of Peron's tree frog *(Litoria peronii)* since 2018 <u>in New South Wales</u> {.galah}
 
-## Narrow query by state {.galah}
+Add the state value to your query
 
 :::: columns
 :::{.column width="50%"}
@@ -627,13 +672,21 @@ galah_call() |>
 ![](images/logos/python-logo.svg){height=50px}
 </center>
 ```{python}
+#| echo: true
+#| code-overflow: scroll
 
+galah.atlas_counts(
+  taxa="litoria peronii",
+  filters=["year>=2018","cl22=New South Wales"]
+)
 ```
 :::
 ::::
 
 
-## Search fields (again) {.galah}
+## Download record counts of Peron's tree frog *(Litoria peronii)* since 2018 in New South Wales <u>by FrogID</u> {.galah}
+
+Find the appropriate field and values à la the Australian states
 
 :::: columns
 :::{.column width="50%"}
@@ -649,7 +702,7 @@ search_all(fields, "dataResourceName") |>
   show_values()
 
 search_all(fields, "dataResourceName") |>
-  search_values("FrogID")
+  search_values("frogid")
 ```
 :::
 
@@ -658,13 +711,19 @@ search_all(fields, "dataResourceName") |>
 ![](images/logos/python-logo.svg){height=50px}
 </center>
 ```{python}
+#| echo: true
+#| code-overflow: scroll
+galah.search_all(fields="dataResource",column_name="id")
 
+#galah.show_values(field="dataResourceName")
+
+#galah.search_values(field="dataResourceName",value="FrogID")
 ```
 :::
 ::::
 
 
-## Narrow query by data resource {.galah}
+## Download record counts of Peron's tree frog *(Litoria peronii)* since 2018 in New South Wales <u>by FrogID</u> {.galah}
 
 :::: columns
 :::{.column width="50%"}
@@ -688,70 +747,19 @@ galah_call() |>
 ![](images/logos/python-logo.svg){height=50px}
 </center>
 ```{python}
-
-```
-:::
-::::
-
-
-## Group counts by data resource {.galah}
-
-:::: columns
-:::{.column width="50%"}
-<center>
-![](images/logos/rstudio.svg){height=50px}
-</center>
-```{r}
 #| echo: true
 #| code-overflow: scroll
-galah_call() |>
-  galah_identify("litoria peronii") |>
-  galah_filter(year >= 2018,
-               cl22 == "New South Wales") |>
-  galah_group_by(dataResourceName) |>
-  atlas_counts()
-```
-:::
 
-:::{.column width="50%"}
-<center>
-![](images/logos/python-logo.svg){height=50px}
-</center>
-```{python}
-
+galah.atlas_counts(
+  taxa="litoria peronii",
+  filters=["year>=2018",
+           "cl22=New South Wales",
+           "dataResourceName=FrogID"]
+)
 ```
 :::
 ::::
 
-## Group counts by data resource and year {.galah}
-
-:::: columns
-:::{.column width="50%"}
-<center>
-![](images/logos/rstudio.svg){height=50px}
-</center>
-```{r}
-#| echo: true
-#| code-overflow: scroll
-galah_call() |>
-  galah_identify("litoria peronii") |>
-  galah_filter(year >= 2018,
-               cl22 == "New South Wales",
-               dataResourceName == c("FrogID", "iNaturalist Australia")) |>
-  galah_group_by(dataResourceName, year) |>
-  atlas_counts()
-```
-:::
-
-:::{.column width="50%"}
-<center>
-![](images/logos/python-logo.svg){height=50px}
-</center>
-```{python}
-
-```
-:::
-::::
 
 
 
@@ -763,7 +771,7 @@ galah_call() |>
 :::
 
 
-## Our counts query again {.galah}
+## Download record <u>counts</u> of Peron's tree frog *(Litoria peronii)* since 2018 in New South Wales by FrogID {.galah}
 
 :::: columns
 :::{.column width="50%"}
@@ -787,12 +795,21 @@ galah_call() |>
 ![](images/logos/python-logo.svg){height=50px}
 </center>
 ```{python}
+#| echo: true
+#| code-overflow: scroll
 
+galah.atlas_counts(
+  taxa="litoria peronii",
+  filters=["year>=2018",
+           "cl22=New South Wales",
+           "dataResourceName=FrogID"]
+)
 ```
 :::
 ::::
 
-## Download occurrences {.galah}
+## Download record <u>occurrences</u> of Peron's tree frog *(Litoria peronii)* since 2018 in New South Wales by FrogID {.galah}
+
 
 :::: columns
 :::{.column width="50%"}
@@ -818,7 +835,16 @@ galah_call() |>
 ![](images/logos/python-logo.svg){height=50px}
 </center>
 ```{python}
+#| echo: true
+#| code-overflow: scroll
+galah.galah_config(email="amanda.buyan@csiro.au")
 
+galah.atlas_occurrences(
+  taxa="litoria peronii",
+  filters=["year>=2018",
+           "cl22=New South Wales",
+           "dataResourceName=FrogID"]
+)
 ```
 :::
 ::::
@@ -827,7 +853,9 @@ galah_call() |>
 [*Register your email by [creating an ALA account](https://auth.ala.org.au/userdetails/registration/createAccount)*]{style="font-size:.9rem;"}
 
 
-## Download occurrences {.galah}
+## Download record <u>occurrences</u> of Peron's tree frog *(Litoria peronii)* since 2018 in New South Wales by FrogID {.galah}
+
+Only select certain fields
 
 :::: columns
 :::{.column width="50%"}
@@ -854,7 +882,16 @@ galah_call() |>
 ![](images/logos/python-logo.svg){height=50px}
 </center>
 ```{python}
+#| echo: true
+#| code-overflow: scroll
 
+galah.atlas_occurrences(
+  taxa="litoria peronii",
+  filters=["year>=2018",
+           "cl22=New South Wales",
+           "dataResourceName=FrogID"],
+  fields=["scientificName","decimalLongitude","decimalLatitude"]
+)
 ```
 :::
 ::::
@@ -931,10 +968,46 @@ ggplot() +
 <center>
 ![](images/logos/python-logo.svg){height=50px}
 </center>
+Load libraries
 ```{python}
-
+#| echo: true
+import galah
+from matplotlib import pyplot as plt
+import geopandas as gpd
 ```
-
+Get Peron's tree frog occurrences
+```{python}
+#| echo: true
+#| code-overflow: scroll
+frogs = galah.atlas_occurrences(
+  taxa="litoria peronii",
+  filters=["year>=2018",
+           "cl22=New South Wales",
+           "dataResourceName=FrogID"],
+  fields=["scientificName","decimalLongitude","decimalLatitude"]
+)
+frogs
+```
+Get Australian state and territory boundaries ([link to shapefile](https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/access-and-downloads/digital-boundary-files/STE_2021_AUST_SHP_GDA2020.zip)), and select New South Wales
+```{python}
+#| echo: true
+#| code-overflow: scroll
+states = gpd.read_file("STE_2021_AUST_GDA2020.shp")
+states
+```
+Plot New South Wales 
+```{python}
+#| echo: true
+#| code-overflow: scroll
+states[states["STE_NAME21"] == "New South Wales"].plot(edgecolor = "#5A5A5A", linewidth = 0.5, facecolor = "white")
+```
+Add occurrence records to the map
+```{python}
+#| echo: true
+#| code-overflow: scroll
+ax = states[states["STE_NAME21"] == "New South Wales"].plot(edgecolor = "#5A5A5A", linewidth = 0.5, facecolor = "white")
+plt.scatter(frogs['decimalLongitude'],frogs['decimalLatitude'], c = "#6fab3f", alpha = 0.5)
+```
 :::
 
 
@@ -989,3 +1062,80 @@ Slides: <br>
 </center>
 :::
 :::
+
+## Group counts by data resource {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+galah_call() |>
+  galah_identify("litoria peronii") |>
+  galah_filter(year >= 2018,
+               cl22 == "New South Wales") |>
+  galah_group_by(dataResourceName) |>
+  atlas_counts()
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+#| echo: true
+#| code-overflow: scroll
+
+galah.atlas_counts(
+  taxa="litoria peronii",
+  filters=["year>=2018",
+           "cl22=New South Wales"],
+  group_by="dataResourceName",
+  expand=False
+)
+```
+:::
+::::
+
+## Group counts by data resource and year {.galah}
+
+:::: columns
+:::{.column width="50%"}
+<center>
+![](images/logos/rstudio.svg){height=50px}
+</center>
+```{r}
+#| echo: true
+#| code-overflow: scroll
+galah_call() |>
+  galah_identify("litoria peronii") |>
+  galah_filter(year >= 2018,
+               cl22 == "New South Wales",
+               dataResourceName == c("FrogID", "iNaturalist Australia")) |>
+  galah_group_by(dataResourceName, year) |>
+  atlas_counts()
+```
+:::
+
+:::{.column width="50%"}
+<center>
+![](images/logos/python-logo.svg){height=50px}
+</center>
+```{python}
+#| echo: true
+#| code-overflow: scroll
+#           "dataResourceName=[FrogID,iNaturalist Australia]",
+galah.atlas_counts(
+  taxa="litoria peronii",
+  filters=["year>=2018",
+           "cl22=New South Wales",
+           "dataResourceName=FrogID"],
+  group_by=["dataResourceName","year"]
+)
+```
+:::
+::::
