@@ -733,7 +733,6 @@ search_all(fields, "dataResourceName") |>
 ```{python}
 #| echo: true
 #| code-overflow: scroll
-print(galah.__version__)
 galah.search_all(fields="dataResource",column_name="id")
 
 #galah.show_values(field="dataResourceName")
