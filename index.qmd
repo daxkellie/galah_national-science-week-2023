@@ -733,6 +733,7 @@ search_all(fields, "dataResourceName") |>
 ```{python}
 #| echo: true
 #| code-overflow: scroll
+print(galah.__version__)
 galah.search_all(fields="dataResource",column_name="id")
 
 #galah.show_values(field="dataResourceName")
@@ -1122,25 +1123,27 @@ frogs = galah.atlas_occurrences(
 )
 frogs
 ```
-Get Australian state and territory boundaries ([link to shapefile](https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/access-and-downloads/digital-boundary-files/STE_2021_AUST_SHP_GDA2020.zip)).  
+Get Australian state and territory boundaries ([link to shapefile](https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/access-and-downloads/digital-boundary-files/STE_2021_AUST_SHP_GDA94.zip)).  
 Select New South Wales
 ```{python}
 #| echo: true
 #| code-overflow: scroll
-states = gpd.read_file("STE_2021_AUST_GDA2020.shp")
+states = gpd.read_file("STE_2021_AUST_GDA94.shp")
+print(states.crs)
 states
 ```
 Plot New South Wales 
 ```{python}
 #| echo: true
 #| code-overflow: scroll
-states[states["STE_NAME21"] == "New South Wales"].plot(edgecolor = "#5A5A5A", linewidth = 0.5, facecolor = "white")
+states = states.to_crs(4326)
+states[states["STE_NAME21"] == "New South Wales"].plot(edgecolor = "#5A5A5A", linewidth = 0.5, facecolor = "white", figsize = (24,10))
 ```
 Add occurrence records to the map
 ```{python}
 #| echo: true
 #| code-overflow: scroll
-ax = states[states["STE_NAME21"] == "New South Wales"].plot(edgecolor = "#5A5A5A", linewidth = 0.5, facecolor = "white")
+ax = states[states["STE_NAME21"] == "New South Wales"].plot(edgecolor = "#5A5A5A", linewidth = 0.5, facecolor = "white", figsize = (24,10))
 plt.scatter(frogs['decimalLongitude'],frogs['decimalLatitude'], c = "#6fab3f", alpha = 0.5)
 ```
 :::
