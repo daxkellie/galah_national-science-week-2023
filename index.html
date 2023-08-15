@@ -679,29 +679,53 @@
 <span id="cb3-3"><a href="#cb3-3"></a>galah.atlas_counts(</span>
 <span id="cb3-4"><a href="#cb3-4"></a>  taxa <span class="op">=</span> <span class="st">"Eolophus roseicapilla"</span>,</span>
 <span id="cb3-5"><a href="#cb3-5"></a>  filters<span class="op">=</span>[<span class="st">"year&gt;=2019"</span>,<span class="st">"stateProvince==New South Wales"</span>],</span>
-<span id="cb3-6"><a href="#cb3-6"></a>  group_by<span class="op">=</span>[<span class="st">"year"</span>, <span class="st">"dataResourceName"</span>],</span>
-<span id="cb3-7"><a href="#cb3-7"></a>  expand<span class="op">=</span><span class="va">False</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-6"><a href="#cb3-6"></a>  group_by<span class="op">=</span>[<span class="st">"year"</span>, <span class="st">"dataResourceName"</span>]</span>
+<span id="cb3-7"><a href="#cb3-7"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource hscroll number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href="#cb4-1"></a>    year                                   dataResourceName  count</span>
-<span id="cb4-2"><a href="#cb4-2"></a>0   2019                                                  -  16216</span>
-<span id="cb4-3"><a href="#cb4-3"></a>1   2020                                                  -  19995</span>
-<span id="cb4-4"><a href="#cb4-4"></a>2   2021                                                  -  19392</span>
-<span id="cb4-5"><a href="#cb4-5"></a>3   2022                                                  -  22111</span>
-<span id="cb4-6"><a href="#cb4-6"></a>4   2023                                                  -   5349</span>
-<span id="cb4-7"><a href="#cb4-7"></a>5      -                                    eBird Australia  74538</span>
-<span id="cb4-8"><a href="#cb4-8"></a>6      -                                   NSW BioNet Atlas   5794</span>
-<span id="cb4-9"><a href="#cb4-9"></a>7      -                              iNaturalist Australia   2049</span>
-<span id="cb4-10"><a href="#cb4-10"></a>8      -                        Earth Guardians Weekly Feed    339</span>
-<span id="cb4-11"><a href="#cb4-11"></a>9      -                        BirdLife Australia, Birdata    235</span>
-<span id="cb4-12"><a href="#cb4-12"></a>10     -                                         NatureMapr     52</span>
-<span id="cb4-13"><a href="#cb4-13"></a>11     -                                 Wildlife Watch NSC     17</span>
-<span id="cb4-14"><a href="#cb4-14"></a>12     -                                       Tempe birdos     13</span>
-<span id="cb4-15"><a href="#cb4-15"></a>13     -  Australian National Wildlife Collection provid...      8</span>
-<span id="cb4-16"><a href="#cb4-16"></a>14     -                           WCPS Bird Survey Project      7</span>
-<span id="cb4-17"><a href="#cb4-17"></a>15     -                       Victorian Biodiversity Atlas      6</span>
-<span id="cb4-18"><a href="#cb4-18"></a>16     -                  ALA species sightings and OzAtlas      4</span>
-<span id="cb4-19"><a href="#cb4-19"></a>17     -                                         Gaia Guide      1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href="#cb4-2"></a>0   2019                                    eBird Australia  13561</span>
+<span id="cb4-3"><a href="#cb4-3"></a>1   2020                                    eBird Australia  17114</span>
+<span id="cb4-4"><a href="#cb4-4"></a>2   2021                                    eBird Australia  18006</span>
+<span id="cb4-5"><a href="#cb4-5"></a>3   2022                                    eBird Australia  20858</span>
+<span id="cb4-6"><a href="#cb4-6"></a>4   2023                                    eBird Australia   4999</span>
+<span id="cb4-7"><a href="#cb4-7"></a>5   2019                                   NSW BioNet Atlas   2031</span>
+<span id="cb4-8"><a href="#cb4-8"></a>6   2020                                   NSW BioNet Atlas   2296</span>
+<span id="cb4-9"><a href="#cb4-9"></a>7   2021                                   NSW BioNet Atlas    788</span>
+<span id="cb4-10"><a href="#cb4-10"></a>8   2022                                   NSW BioNet Atlas    644</span>
+<span id="cb4-11"><a href="#cb4-11"></a>9   2023                                   NSW BioNet Atlas     35</span>
+<span id="cb4-12"><a href="#cb4-12"></a>10  2019                              iNaturalist Australia    233</span>
+<span id="cb4-13"><a href="#cb4-13"></a>11  2020                              iNaturalist Australia    455</span>
+<span id="cb4-14"><a href="#cb4-14"></a>12  2021                              iNaturalist Australia    521</span>
+<span id="cb4-15"><a href="#cb4-15"></a>13  2022                              iNaturalist Australia    537</span>
+<span id="cb4-16"><a href="#cb4-16"></a>14  2023                              iNaturalist Australia    303</span>
+<span id="cb4-17"><a href="#cb4-17"></a>15  2019                        Earth Guardians Weekly Feed    134</span>
+<span id="cb4-18"><a href="#cb4-18"></a>16  2020                        Earth Guardians Weekly Feed    104</span>
+<span id="cb4-19"><a href="#cb4-19"></a>17  2021                        Earth Guardians Weekly Feed     51</span>
+<span id="cb4-20"><a href="#cb4-20"></a>18  2022                        Earth Guardians Weekly Feed     40</span>
+<span id="cb4-21"><a href="#cb4-21"></a>19  2023                        Earth Guardians Weekly Feed     10</span>
+<span id="cb4-22"><a href="#cb4-22"></a>20  2019                        BirdLife Australia, Birdata    235</span>
+<span id="cb4-23"><a href="#cb4-23"></a>21  2019                                         NatureMapr      8</span>
+<span id="cb4-24"><a href="#cb4-24"></a>22  2020                                         NatureMapr      9</span>
+<span id="cb4-25"><a href="#cb4-25"></a>23  2021                                         NatureMapr     18</span>
+<span id="cb4-26"><a href="#cb4-26"></a>24  2022                                         NatureMapr     17</span>
+<span id="cb4-27"><a href="#cb4-27"></a>25  2020                                 Wildlife Watch NSC      5</span>
+<span id="cb4-28"><a href="#cb4-28"></a>26  2021                                 Wildlife Watch NSC      5</span>
+<span id="cb4-29"><a href="#cb4-29"></a>27  2022                                 Wildlife Watch NSC      5</span>
+<span id="cb4-30"><a href="#cb4-30"></a>28  2023                                 Wildlife Watch NSC      2</span>
+<span id="cb4-31"><a href="#cb4-31"></a>29  2019                                       Tempe birdos      5</span>
+<span id="cb4-32"><a href="#cb4-32"></a>30  2020                                       Tempe birdos      5</span>
+<span id="cb4-33"><a href="#cb4-33"></a>31  2021                                       Tempe birdos      1</span>
+<span id="cb4-34"><a href="#cb4-34"></a>32  2022                                       Tempe birdos      2</span>
+<span id="cb4-35"><a href="#cb4-35"></a>33  2022  Australian National Wildlife Collection provid...      8</span>
+<span id="cb4-36"><a href="#cb4-36"></a>34  2019                           WCPS Bird Survey Project      4</span>
+<span id="cb4-37"><a href="#cb4-37"></a>35  2020                           WCPS Bird Survey Project      3</span>
+<span id="cb4-38"><a href="#cb4-38"></a>36  2019                       Victorian Biodiversity Atlas      2</span>
+<span id="cb4-39"><a href="#cb4-39"></a>37  2020                       Victorian Biodiversity Atlas      3</span>
+<span id="cb4-40"><a href="#cb4-40"></a>38  2021                       Victorian Biodiversity Atlas      1</span>
+<span id="cb4-41"><a href="#cb4-41"></a>39  2019                  ALA species sightings and OzAtlas      2</span>
+<span id="cb4-42"><a href="#cb4-42"></a>40  2020                  ALA species sightings and OzAtlas      1</span>
+<span id="cb4-43"><a href="#cb4-43"></a>41  2021                  ALA species sightings and OzAtlas      1</span>
+<span id="cb4-44"><a href="#cb4-44"></a>42  2019                                         Gaia Guide      1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section>

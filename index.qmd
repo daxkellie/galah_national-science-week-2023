@@ -267,8 +267,7 @@ import galah
 galah.atlas_counts(
   taxa = "Eolophus roseicapilla",
   filters=["year>=2019","stateProvince==New South Wales"],
-  group_by=["year", "dataResourceName"],
-  expand=False
+  group_by=["year", "dataResourceName"]
 )
 ```
 
