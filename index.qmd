@@ -1,5 +1,5 @@
 ---
-pagetitle: "{galah} 101 - Beginner's guide"
+pagetitle: "{galah} 101 - Beginners guide"
 title-slide-attributes: 
   data-background-color: "#fce8f1"
 format: 
@@ -20,18 +20,18 @@ revealjs-plugins:
 
 ```{r}
 #| echo: false
+#| eval: true
 #| message: false
 #| warning: false
-#| include: false
 library(galah)
 galah_config(email = "dax.kellie@csiro.au", verbose = FALSE)
 ```
 
 ```{python}
 #| echo: false
+#| eval: true
 #| message: false
 #| warning: false
-#| include: false
 import galah
 galah.galah_config(email="amanda.buyan@csiro.au")
 ```
@@ -267,7 +267,8 @@ import galah
 galah.atlas_counts(
   taxa = "Eolophus roseicapilla",
   filters=["year>=2019","stateProvince==New South Wales"],
-  group_by=["year", "dataResourceName"]
+  group_by=["year", "dataResourceName"],
+  expand=False
 )
 ```
 
@@ -329,7 +330,15 @@ import galah
 ```
 
 ::: {.fragment .fade-in fragment-index="1"}
-<br><br>
+<br>
+
+```{python}
+#| echo: true
+#| results: hide
+#| code-overflow: scroll
+galah.galah_config(data_profile="None")
+```
+
 
 ```{python}
 #| echo: true
@@ -735,9 +744,9 @@ search_all(fields, "dataResourceName") |>
 #| code-overflow: scroll
 galah.search_all(fields="dataResource",column_name="id")
 
-#galah.show_values(field="dataResourceName")
+# galah.show_values(field="dataResourceName")
 
-#galah.search_values(field="dataResourceName",value="FrogID")
+# galah.search_values(field="dataResourceName",value="frogid")
 ```
 :::
 ::::
@@ -921,9 +930,14 @@ galah.atlas_counts(
 </center>
 ```{r}
 #| echo: true
+#| eval: false
 #| code-overflow: scroll
-galah_config(email = "dax.kellie@csiro.au") # registered ALA email
+galah_config(email = "your-email-here") # registered ALA email
+```
 
+```{r}
+#| echo: true
+#| code-overflow: scroll
 galah_call() |>
   galah_identify("litoria peronii") |>
   galah_filter(year >= 2018,
@@ -939,9 +953,14 @@ galah_call() |>
 </center>
 ```{python}
 #| echo: true
+#| eval: false
 #| code-overflow: scroll
-galah.galah_config(email="amanda.buyan@csiro.au")
+galah.galah_config(email="your-email-here")
+```
 
+```{python}
+#| echo: true
+#| code-overflow: scroll
 galah.atlas_occurrences(
   taxa="litoria peronii",
   filters=["year>=2018",
@@ -967,9 +986,15 @@ Only select certain fields
 </center>
 ```{r}
 #| echo: true
+#| eval: false
 #| code-overflow: scroll
-galah_config(email = "dax.kellie@csiro.au") # registered ALA email
+galah_config(email = "your-email-here") # registered ALA email
+```
 
+
+```{r}
+#| echo: true
+#| code-overflow: scroll
 galah_call() |>
   galah_identify("litoria peronii") |>
   galah_filter(year >= 2018,
@@ -984,6 +1009,13 @@ galah_call() |>
 <center>
 ![](images/logos/python-logo.svg){height=50px}
 </center>
+```{python}
+#| echo: true
+#| eval: false
+#| code-overflow: scroll
+galah.galah_config(email="your-email-here")
+```
+
 ```{python}
 #| echo: true
 #| code-overflow: scroll
