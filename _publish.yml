@@ -1,0 +1,4 @@
+- source: index.qmd
+  quarto-pub:
+    - id: 1a160c0c-6a2e-45f5-a85e-4b4d73667ece
+      url: 'https://acbuyan.quarto.pub/galah-101-beginners-guide'

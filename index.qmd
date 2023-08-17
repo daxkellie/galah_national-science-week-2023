@@ -1211,19 +1211,13 @@ plt.scatter(frogs['decimalLongitude'],frogs['decimalLatitude'], c = "#6fab3f", a
 ::: columns
 ::: {.column width="60%"}
 ::: {style="font-size: 70%;"}
-<b>Dax Kellie</b><br>Data Analyst & Science Lead<br>Science & Decision Support \| ALA <br>{{< fa envelope size=lg >}}: [dax.kellie\@csiro.au](mailto:dax.kellie@csiro.au)<br> {{< fa brands twitter size=lg >}}: [\@daxkellie](https://twitter.com/daxkellie)<br> {{< fa brands github size=lg >}}: [\@daxkellie](https://github.com/daxkellie) <br><br>
-<b>Amanda Buyan</b><br>Data Analyst & Science Lead<br>Science & Decision Support \| ALA <br>{{< fa envelope size=lg >}}: [amanda.buyan\@csiro.au](mailto:amanda.buyan@csiro.au)<br> {{< fa brands github size=lg >}}: [\@acbuyan](https://github.com/acbuyan) <br> <br> <b>`galah` development team</b><br> Martin Westgate, Shandiya Balasubramaniam<br>Matilda Stevenson, Caitlin Ramsey<br>Peggy Newman<br> <em>These slides were made using Quarto</em>
+<b>Dax Kellie</b><br>Data Analyst (galah-R)<br>Science & Decision Support \| ALA <br>{{< fa envelope size=lg >}}: [dax.kellie\@csiro.au](mailto:dax.kellie@csiro.au)<br> {{< fa brands twitter size=lg >}}: [\@daxkellie](https://twitter.com/daxkellie)<br> {{< fa brands github size=lg >}}: [\@daxkellie](https://github.com/daxkellie) <br><br>
+<b>Amanda Buyan</b><br>Data Analyst (galah-python)<br>Science & Decision Support \| ALA <br>{{< fa envelope size=lg >}}: [amanda.buyan\@csiro.au](mailto:amanda.buyan@csiro.au)<br> {{< fa brands github size=lg >}}: [\@acbuyan](https://github.com/acbuyan) <br> <br> <b>`galah` development team</b><br> Martin Westgate, Shandiya Balasubramaniam<br>Matilda Stevenson, Caitlin Ramsey<br>Peggy Newman<br> <em>These slides were made using Quarto</em>
 :::
 :::
 
 ::: {.column width="40%"}
 <center>
-
-Slides: <br>
-
-![](images/qr-code.png){height="170"}
-
-------------------------------------------------------------------------
 
 ![](images/logos/ALA_Logo.png){style="width: auto; height: 90px"}<br> ![](images/logos/NCRIS_logo.png){style="width: auto; height: 90px"} ![](images/logos/CSIRO_logo.png){style="width: auto; height: 90px"}
 
